@@ -1,3 +1,8 @@
+'''
+
+RailroadService Test Module
+
+'''
 import unittest
 
 from src.railroad import RailroadService
@@ -20,7 +25,7 @@ class TestRailroadService(unittest.TestCase):
     def test_num_stops(self):
         self.assertEqual(len(self.railroad.stops), 5)
 
-
+    # Tests for get_distance method
     def test_distance_empty_route(self):
         self.assertEqual(self.railroad.get_distance(), 0)
 
@@ -46,6 +51,7 @@ class TestRailroadService(unittest.TestCase):
         self.assertEqual(self.railroad.get_distance(['A', 'E', 'B', 'C', 'D']), 22)
 
 
+    # Tests for count_trips_by_stops method
     def test_count_trips_by_stops(self):
         self.assertEqual(self.railroad.count_trips_by_stops('A', 'C', 4), 3)
 
@@ -59,6 +65,7 @@ class TestRailroadService(unittest.TestCase):
         self.assertEqual(self.railroad.count_trips_by_stops('B', 'B', 3), 1)
 
 
+    # Tests for count_trips_by_max_stops method
     def test_count_trips_by_max_stops(self):
         self.assertEqual(self.railroad.count_trips_by_max_stops('A', 'C', 3), 3)
 
@@ -72,6 +79,7 @@ class TestRailroadService(unittest.TestCase):
         self.assertEqual(self.railroad.count_trips_by_max_stops('C', 'C', 3), 2)
 
 
+    # Tests for count_trips_by_max_dist method
     def test_count_trips_by_max_dist(self):
         self.assertEqual(self.railroad.count_trips_by_max_dist('A', 'E', 12), 3)
 
@@ -85,6 +93,7 @@ class TestRailroadService(unittest.TestCase):
         self.assertEqual(self.railroad.count_trips_by_max_dist('C', 'C', 30), 7)
 
 
+    # Tests for get_shortest_distance method
     def test_shortest_dist(self):
         self.assertEqual(self.railroad.get_shortest_distance('A', 'C'), 9)
 

@@ -1,3 +1,9 @@
+'''
+
+Graph Test Module
+
+'''
+
 import unittest
 
 from src.graph import Graph
@@ -12,6 +18,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(len(self.graph.nodes), 5)
 
 
+    # Tests for get_weight method
     def test_weight_empty_path(self):
         self.assertEqual(self.graph.get_weight([]), 0)
 
@@ -37,12 +44,12 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graph.get_weight(['A', 'E', 'B', 'C', 'D']), 22)
 
 
+    # Tests for get_paths method with given num_nodes
     def test_get_paths_all_none(self):
         self.assertRaises(ValueError, self.graph.get_paths, 'A', 'D')
 
     def test_get_paths_invalid_nodes(self):
         self.assertRaises(ValueError, self.graph.get_paths, 'A', 'F', num_nodes=4)
-
 
     def test_get_paths_by_num_nodes(self):
         paths = self.graph.get_paths('A', 'C', num_nodes=4)
@@ -61,6 +68,7 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graph.get_paths('B', 'B', num_nodes=3), [['B', 'C', 'E', 'B']])
 
 
+    # Tests for get_paths method with given max_nodes
     def test_get_paths_by_max_nodes(self):
         paths = self.graph.get_paths('A', 'C', max_nodes=3)
         self.assertEqual(len(paths), 3)
@@ -81,21 +89,21 @@ class TestGraph(unittest.TestCase):
         self.assertIn(['C', 'D', 'C'], paths)
         self.assertIn(['C', 'E', 'B', 'C'], paths)
 
-
-    def test_get_paths_by_max_dist(self):
+    # Tests for get_paths method with given max_weight
+    def test_get_paths_by_max_weight(self):
         paths = self.graph.get_paths('A', 'E', max_weight=12)
         self.assertEqual(len(paths), 3)
         self.assertIn(['A', 'E'], paths)
         self.assertIn(['A', 'D', 'E'], paths)
         self.assertIn(['A', 'B', 'C', 'E'], paths)
 
-    def test_get_paths_by_max_dist_no_path(self):
+    def test_get_paths_by_max_weight_no_path(self):
         self.assertEqual(self.graph.get_paths('C', 'A', max_weight=10), [])
 
-    def test_get_paths_by_max_dist_no_match(self):
+    def test_get_paths_by_max_weight_no_match(self):
         self.assertEqual(self.graph.get_paths('C', 'D', max_weight=8), [])
 
-    def test_get_paths_by_max_dist_same_src_dest(self):
+    def test_get_paths_by_max_weight_same_src_dest(self):
         paths = self.graph.get_paths('C', 'C', max_weight=30)
         self.assertEqual(len(paths), 8)
         self.assertIn(['C'], paths)
@@ -107,7 +115,7 @@ class TestGraph(unittest.TestCase):
         self.assertIn(['C', 'E', 'B', 'C', 'E', 'B', 'C'], paths)
         self.assertIn(['C', 'E', 'B', 'C', 'E', 'B', 'C', 'E', 'B', 'C'], paths)
 
-
+    # Tests for get_shortest_path method
     def test_shortest_path(self):
         self.assertEqual(self.graph.get_shortest_path('A', 'C'), ['A', 'B', 'C'])
 

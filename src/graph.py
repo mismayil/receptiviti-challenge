@@ -1,6 +1,6 @@
 '''
 
-Graph module
+Graph Module
 
 '''
 
