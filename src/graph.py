@@ -32,7 +32,7 @@ class Graph:
         for edge in edges:
             if len(edge) > 2: self.add_edge(edge[0], edge[1], edge[2])
 
-    def add_edge(self, src, dest, weight=1):
+    def add_edge(self, src, dest, weight=1, color='B'):
         ''' Adds a new edge to the Graph
 
         Args:
@@ -43,7 +43,7 @@ class Graph:
         Returns:
             None
         '''
-        self.edges[src][dest] = weight
+        self.edges[src][dest] = (weight, color)
         self.nodes.add(src)
         self.nodes.add(dest)
 
@@ -82,6 +82,30 @@ class Graph:
             return -1
 
         return weight
+
+    def get_colors(self, path=[]):
+        pass
+
+    def find_paths(self, src, dest):
+        paths = []
+        queue = []
+
+        path = []
+        path.append(src)
+        queue.append(path)
+
+        while queue:
+            path = queue.pop(0)
+            last = path[-1]
+
+            if last == dest:
+                paths.append(path)
+
+            for nb in self.edges[last]:
+                if nb not in path:
+                    queue.append(path + [nb])
+
+        return paths
 
     def get_paths(self, src, dest, num_nodes=None, max_nodes=None, max_weight=None):
         ''' Returns all paths between src and dest node
@@ -187,3 +211,8 @@ class Graph:
             path.insert(0, src)
 
         return path
+
+
+edges = [('A', 'B', 5), ('B', 'C', 4), ('C', 'D', 8), ('D', 'C', 8), ('D', 'E', 6), ('A', 'D', 5), ('C', 'E', 2), ('E', 'B', 3), ('A', 'E', 7)]
+graph = Graph(edges)
+print(graph.find_paths('A', 'D'))
